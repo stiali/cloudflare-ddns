@@ -27,7 +27,7 @@ CONFIG_PATH = os.environ.get('CONFIG_PATH', os.getcwd())
 ENV_VARS = {key: value for (key, value) in os.environ.items() if key.startswith('CF_DDNS_')}
 
 def print_including_datetime(text):
-    print("%s: %s" % (datetime.now().strftime("%d/%m/%Y %H:%M:%S"), text))
+    print("%s: %s" % (datetime.now(), text))
 
 class GracefulExit:
     def __init__(self):
