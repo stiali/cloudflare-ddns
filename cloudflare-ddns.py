@@ -294,9 +294,9 @@ if __name__ == '__main__':
             ttl = 1  # default Cloudflare TTL
             print(
                 "⚙️ No config detected for 'ttl' - defaulting to 1 (auto)")
-        if ttl < 30:
+        if ttl != 1 and ttl < 30 or 86400 < ttl:
             ttl = 1
-            print("⚙️ TTL is too low - defaulting to 1 (auto)")
+            print("⚙️ TTL must be between 30 (Enterprise) or 60 (standard) and 86400 (1 day) - defaulting to 1 (auto)")
         if (len(sys.argv) > 1):
             if (sys.argv[1] == "--repeat"):
                 delay = 300 if ttl == 1 else ttl
