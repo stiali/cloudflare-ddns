@@ -148,7 +148,7 @@ def commitRecord(ip):
                 "content": ip["ip"],
                 "proxied": proxied,
                 "ttl": ttl,
-                "comment": f"Updated by CloudflareDDNS at {timestamp}."
+                "comment": f"Updated by Cloudflare DDNS at {timestamp}."
             }
             dns_records = cf_api(
                 "zones/" + option['zone_id'] +
