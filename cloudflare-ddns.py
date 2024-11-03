@@ -8,6 +8,8 @@
 
 __version__ = "1.0.2"
 
+from string import Template
+
 import json
 import os
 import signal
@@ -21,6 +23,8 @@ from datetime import datetime
 
 
 CONFIG_PATH = os.environ.get('CONFIG_PATH', os.getcwd())
+# Read in all environment variables that have the correct prefix
+ENV_VARS = {key: value for (key, value) in os.environ.items() if key.startswith('CF_DDNS_')}
 
 def print_including_datetime(text):
     print("%s: %s" % (datetime.now(), text))
@@ -274,7 +278,10 @@ if __name__ == '__main__':
     config = None
     try:
         with open(os.path.join(CONFIG_PATH, "config.json")) as config_file:
-            config = json.loads(config_file.read())
+            if len(ENV_VARS) != 0:
+                config = json.loads(Template(config_file.read()).safe_substitute(ENV_VARS))
+            else:
+                config = json.loads(config_file.read())
     except:
         print_including_datetime("😡 Error reading config.json")
         # wait 10 seconds to prevent excessive logging on docker auto restart
